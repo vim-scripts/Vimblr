@@ -1,0 +1,51 @@
+Vimblr for Vim
+==============
+
+This script lets you send text posts to the Tumblr blogging platform using nothing but Vim! It supports Markdown formatting, and also allows editing and deleting of previous posts.
+
+In order to use Vimblr, the following variables must be set:
+
+	tumblr_email
+	tumblr_password
+	tumblr_tumblelog
+
+They are evaluated on every command, so you can easily change them when/if you need to switch to a different Tumblr blog.
+
+If you're using a proxy, you will also need to set the following variable:
+
+	tumblr_http_proxy
+
+Vimblr adds three commands to Vim:
+
+	:Tumble
+	:TumbleLink
+	:ListTumbles
+
+The syntax for :Tumble is
+
+	:[range]Tumble [draft|publish]
+
+By default, Vimblr posts the current buffer to tumblr.com, but you a range can be set if that isn't desired. For example, ":,Tumble" posts the current selection.
+
+Unless 'draft' (without the '') is given as an argument, it publishes the post immediately to your blog. This default behaviour is equivalent to "Tumble publish". Adding other arguments could make the the posting to Tumblr.com fail. Vimblr doesn't currently have any safety measures that can prevent this. Sorry.
+
+Vimblr is very smart by default. If it finds level text style markdown title in the first lines if the buffer/range, it detects it as the post's title. If no title is found, it overwrites it instead of sending a new post.
+
+The syntax for :TumbleLink is
+
+	:[range]TumbleLink
+
+Vimblr assumes the [range] is formatted:
+
+	line
+	1		URL
+	2		NAME
+	3		DESCRIPTION
+
+NAME and DESCRIPTION are optinal, but NAME should always be on the second line.
+
+The syntax for :ListTumbles is
+
+	:ListTumbles draft|published
+
+Vimblr prints a list of your published or draft posts in the current buffer. If you press enter over a post line, Vimblr will try to fetch the post and load it for editing. If you press delete, it will delete the post or draft.
